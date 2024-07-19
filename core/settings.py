@@ -10,10 +10,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-1*!z#qm!dc4e_t)tf(jcg0@ia2#dynv91)&459+quz$8lfqa)r'
 
-# SECURITY WARNING: don't run with debug turned on in production!
+# SECURITY WARNING: cuando ahgamos deploy de nuestra web tenemos que cambiar el DEBUG = False
 DEBUG = True
 
-ALLOWED_HOSTS = []
+#Esto significa que podemos correrlo en cualquier host
+ALLOWED_HOSTS = ['*']
+
+#Estas tres variables anteriores, son muy utiles al final de todo
 
 
 # Application definition
@@ -25,6 +28,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'core',
+    
 ]
 
 MIDDLEWARE = [
@@ -38,6 +43,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'core.urls'
+
+#Los tempaltes son para hacer que nuestra aplicacion se vea mas bonita con vistas (Views)
 
 TEMPLATES = [
     {
@@ -55,10 +62,11 @@ TEMPLATES = [
     },
 ]
 
+#Esete es el wraper para que nuestras imagenes y nuestra app se entienda en el servidor al desplegar el servidor
 WSGI_APPLICATION = 'core.wsgi.application'
 
 
-# Database
+# Database Para desplegar profesionalmente vamos a usar otra base de datos
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
@@ -69,8 +77,9 @@ DATABASES = {
 }
 
 
-# Password validation
+# Password validation Este es para validar las contrasenias
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -88,7 +97,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
+# Internationalization Este es para que django funcione con diferentes lenguajes
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
@@ -100,7 +109,7 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
+# Static files (CSS, JavaScript, Images)  Para trabajar nuestras imagenes
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
