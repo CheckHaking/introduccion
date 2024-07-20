@@ -1,10 +1,11 @@
-from django.shortcuts import render, redirect
-from django.views.generic import View
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic import View, UpdateView
 from .forms import PostCreateForm
 from .models import Post
 
 # Create your views here.
 
+#Vista para ver todos los post
 class BlogListView(View):
      
     def get(self, request, *args, **kwargs):
@@ -14,7 +15,7 @@ class BlogListView(View):
         }
         return render(request, 'blog_list.html', context )
     
-
+#Vista para crear un post
 class BlogCreateView(View):
     
     def get(self, request, *args, **kwargs):
@@ -46,5 +47,15 @@ class BlogCreateView(View):
         }
         return render(request, 'blog_create.html', context)
     
+
+#Vista para ver el contenido de un Post
     
+class BlogDetailView(View):
+    def get(self, request, pk, *args, **kwargs):
+        
+        post=get_object_or_404(Post, pk = pk)
+        context = {
+            'post':post
+        }
+        return render(request, 'blog_detail.html', context )
     
