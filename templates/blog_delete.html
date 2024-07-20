@@ -1,0 +1,7 @@
+Are you shure?
+<!--Tenemos que llamar a un formulario muy similar al create-->
+<form method="POST">
+{% csrf_token %}
+{{form}}
+<button type="submit">Delete</button>
+</form>
