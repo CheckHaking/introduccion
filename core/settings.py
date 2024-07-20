@@ -1,4 +1,9 @@
 from pathlib import Path
+import os
+import environ
+
+env = environ.Env() #esto es para crear vaiables
+environ.Env.read_env() #Esto es para leer variables
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -8,10 +13,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-1*!z#qm!dc4e_t)tf(jcg0@ia2#dynv91)&459+quz$8lfqa)r'
+#Esto lo queremos proteger
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: cuando ahgamos deploy de nuestra web tenemos que cambiar el DEBUG = False
-DEBUG = True
+DEBUG = os.environ.get('DEBUG')
 
 #Esto significa que podemos correrlo en cualquier host
 ALLOWED_HOSTS = ['*']
@@ -28,8 +34,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core',
     
+    'core',
+    'blog',
 ]
 
 MIDDLEWARE = [
@@ -49,7 +56,7 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')], #Aqui tendremos que decirle a django donde esta nuestro archivo de templates
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
