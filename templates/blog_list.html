@@ -1,0 +1,7 @@
+blog List 
+<br>
+{% for post in posts %}
+{{post.title}}
+{% endfor %}
+<br>
+<a href="{% url "blog:create" %}">Create</a>
