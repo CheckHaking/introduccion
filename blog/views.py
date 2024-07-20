@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View, UpdateView
 from .forms import PostCreateForm
 from .models import Post
+from django.urls import reverse_lazy
 
 # Create your views here.
 
@@ -14,7 +15,6 @@ class BlogListView(View):
             'posts': post
         }
         return render(request, 'blog_list.html', context )
-    
 #Vista para crear un post
 class BlogCreateView(View):
     
@@ -46,10 +46,7 @@ class BlogCreateView(View):
         context = {   
         }
         return render(request, 'blog_create.html', context)
-    
-
-#Vista para ver el contenido de un Post
-    
+#Vista para ver el contenido de un Post 
 class BlogDetailView(View):
     def get(self, request, pk, *args, **kwargs):
         
@@ -58,4 +55,17 @@ class BlogDetailView(View):
             'post':post
         }
         return render(request, 'blog_detail.html', context )
+#Vista para editar un Post
+class BlogUpdateView(UpdateView):
+    #primero le pasamos el modelo que vamos a editar 
+    model = Post
+    #Le pasamos los campos que queremos editar 
+    fields=['title', 'content']
+    #Le pasamos la vista que vamos a usar para editar
+    template_name = 'blog_update.html'    
+    #Cuando se actualice quiero que me redirija a la misma pagina de el post 
+    def get_success_url(self):
+        pk = self.kwargs['pk']
+        return reverse_lazy('blog:detail', kwargs={'pk':pk})
+
     
